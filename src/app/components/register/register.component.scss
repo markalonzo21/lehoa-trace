@@ -1,0 +1,64 @@
+h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.register-form {
+  width: 28%;
+  float: right;
+  height: 90vh;
+  background-color: var(--ion-color-primary);
+  color: #fff;
+  text-align: center;
+  padding: 13px 16px;
+
+  ion-card-content {
+    height: 100%;
+  }
+}
+
+.login-fields {
+  padding: 12px 30px;
+
+  ion-item {
+    --background: none;
+    --border-color: #fff;
+    --highlight-color-focused: #ffffff;
+    --color-focused: none;
+    color: #fff;
+    font-family: Montserrat;
+    --color-activated: none;
+    --background-focused-opacity: 0;
+  }
+}
+
+.login-btn {
+  margin-top: 12px;
+  font-family: Montserrat;
+
+  ion-button {
+    --color: var(--ion-color-primary);
+    --background: var(--ion-color-light);
+    width: 180px;
+    margin-bottom: 16px;
+  }
+
+  p {
+    a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      margin-left: 2px;
+      cursor: pointer;
+    }
+  }
+}
+
+login-card {
+  display: none;
+  position: absolute;
+  width: 100%;
+  right: -32%;
+}

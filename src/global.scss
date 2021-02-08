@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,3 +24,67 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: normal;
+  src: url(./assets/font/Montserrat/Montserrat-Light.ttf);
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: bold;
+  src: url(./assets/font/Montserrat/Montserrat-Medium.ttf);
+}
+
+h2,
+p {
+  font-family: Montserrat;
+}
+
+.qr-modal .modal-wrapper {
+  background: var(--ion-color-primary);
+  color: var(--ion-color-light);
+}
+
+.custom-loading .loading-wrapper {
+  text-align: center;
+
+  .loading-img {
+    background: transparent url(/assets/img/bilog.png) no-repeat center 50%/50%;
+    position: absolute;
+    width: 84%;
+    height: 77%;
+    -webkit-animation: rotate-center 0.2s ease-in-out infinite both;
+    animation: rotate-center 0.2s ease-in-out infinite both;
+  }
+  .loading-content {
+    img {
+      max-width: 50%;
+      padding: 14px;
+    }
+  }
+}
+
+@-webkit-keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,75 @@
+h2 {
+  text-transform: uppercase;
+  font-family: Montserrat;
+  letter-spacing: 0.3em;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 50px;
+}
+
+.login-form {
+  width: 28%;
+  float: right;
+  height: 90vh;
+  background-color: var(--ion-color-primary);
+  color: #fff;
+  text-align: center;
+
+  ion-card-content {
+    height: 100%;
+  }
+}
+
+.login-fields {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 0 70px;
+  transform: translateY(-50%);
+  top: 50%;
+
+  ion-item {
+    --background: none;
+    --border-color: #fff;
+    --highlight-color-focused: #ffffff;
+    --color-focused: none;
+    color: #fff;
+    font-family: Montserrat;
+    --color-activated: none;
+    --background-focused-opacity: 0;
+  }
+}
+
+.login-btn {
+  position: absolute;
+  bottom: 18%;
+  left: 0;
+  right: 0;
+  font-family: Montserrat;
+
+  ion-button {
+    --color: var(--ion-color-primary);
+    --background: var(--ion-color-light);
+    width: 180px;
+    margin-bottom: 16px;
+  }
+
+  p {
+    a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      margin-left: 2px;
+      cursor: pointer;
+    }
+  }
+}
+
+.registerContent {
+  position: absolute;
+  top: 0;
+  transform: translateX(250%);
+  width: 100%;
+  height: 100%;
+  left: 0;
+}

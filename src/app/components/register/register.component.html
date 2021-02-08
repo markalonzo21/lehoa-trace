@@ -1,0 +1,50 @@
+<ion-card class="register-form" #registerContent>
+  <ion-card-content>
+    <div class="heading">
+      <h2 class="title" #title>register</h2>
+      <p>your details to create your account</p>
+    </div>
+    <div class="login-fields">
+      <ion-item>
+        <ion-input type="text" placeholder="Firstname"></ion-input>
+        <ion-icon name="person" slot="end" color="light"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Middlename"></ion-input>
+        <ion-icon name="person" slot="end" color="light"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Lastname"></ion-input>
+        <ion-icon name="person" slot="end" color="light"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Suffix"></ion-input>
+        <ion-icon name="person" slot="end" color="light"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-input type="date" placeholder="Birthdate"></ion-input>
+        <ion-icon name="calendar-number" slot="end" color="light"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-input type="email" placeholder="Email"></ion-input>
+        <ion-icon name="mail" slot="end" color="light"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-input type="tel" placeholder="Contact"></ion-input>
+        <ion-icon name="call" slot="end" color="light"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Username"></ion-input>
+        <ion-icon name="person" slot="end" color="light"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="Password"></ion-input>
+        <ion-icon name="lock-closed" slot="end" color="light"></ion-icon>
+      </ion-item>
+    </div>
+    <div class="login-btn">
+      <ion-button (click)="onClick()" shape="round"> register </ion-button>
+      <p>Already have an account? <a (click)="signIn()">Sign In</a></p>
+    </div>
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,21 @@
+ion-menu {
+  ion-content {
+    --background: var(--ion-color-primary);
+
+    ion-list {
+      background: none;
+    }
+    ion-item {
+      --background: none;
+      --color: #ffffff;
+      --border-color: #ffffff;
+      ion-icon {
+        color: #ffffff;
+        margin-right: 5px;
+      }
+      .logout {
+        rotate: 180deg;
+      }
+    }
+  }
+}
