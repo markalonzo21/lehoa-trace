@@ -8,7 +8,8 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div class="data-table">
+  <!-- web UI -->
+  <div class="data-table" *ngIf="!isMobile; else mobile">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- Position Column -->
       <ng-container matColumnDef="position">
@@ -38,4 +39,30 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
+
+  <!-- mobile UI -->
+  <ng-template #mobile>
+    <ion-segment value="pizza" (ionChange)="segmentChanged($event)" mode="ios">
+      <ion-segment-button value="pizza">
+        <ion-label>Today</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="pasta">
+        <ion-label>Daily</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-note>Feb 1</ion-note>
+    <ion-item lines="none">
+      <div class="time" slot="start"><span>11:00</span><span>AM</span></div>
+      <ion-label>John lemon</ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <div class="time" slot="start"><span>11:00</span><span>AM</span></div>
+      <ion-label>John lemon</ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <div class="time" slot="start"><span>11:00</span><span>AM</span></div>
+      <ion-label>John lemon</ion-label>
+    </ion-item>
+  </ng-template>
 </ion-content>

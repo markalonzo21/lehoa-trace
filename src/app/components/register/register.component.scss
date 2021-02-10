@@ -1,3 +1,4 @@
+// mobile
 h2 {
   text-transform: uppercase;
   letter-spacing: 0.3em;
@@ -5,10 +6,16 @@ h2 {
   font-weight: bold;
 }
 
+.nav {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
 .register-form {
-  width: 28%;
-  float: right;
-  height: 90vh;
+  width: 100%;
+  margin: 0;
+  height: 100vh;
   background-color: var(--ion-color-primary);
   color: #fff;
   text-align: center;
@@ -31,6 +38,21 @@ h2 {
     font-family: Montserrat;
     --color-activated: none;
     --background-focused-opacity: 0;
+    --padding-bottom: 0 !important;
+    --padding-end: 0;
+    --padding-start: 0;
+    --padding-top: 0 !important;
+    --inner-padding-bottom: 0 !important;
+    --inner-padding-end: 0;
+    --inner-padding-start: 0;
+    --inner-padding-top: 0 !important;
+
+    ion-input {
+      --padding-bottom: 0 !important;
+      --padding-end: 0;
+      --padding-start: 0;
+      --padding-top: 0 !important;
+    }
   }
 }
 
@@ -61,4 +83,12 @@ login-card {
   position: absolute;
   width: 100%;
   right: -32%;
+}
+
+// desktop
+@media only screen and (min-width: 768px) {
+  .register-form {
+    width: 28%;
+    height: 90vh;
+  }
 }

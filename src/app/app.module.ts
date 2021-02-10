@@ -15,9 +15,10 @@ import { enterAnimation, leaveAnimation } from "./animations/loading-animation";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppMaterialModule } from "./app-material/app-material.module";
 import { QrmodalComponent } from "./components/qrmodal/qrmodal.component";
+import { VehiclemodalComponent } from "./components/vehiclemodal/vehiclemodal.component";
 
 @NgModule({
-  declarations: [AppComponent, QrmodalComponent],
+  declarations: [AppComponent, QrmodalComponent, VehiclemodalComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

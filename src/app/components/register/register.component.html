@@ -1,4 +1,7 @@
 <ion-card class="register-form" #registerContent>
+  <div class="nav" (click)="closeCard()">
+    <ion-icon name="chevron-back-outline"></ion-icon><span> Home</span>
+  </div>
   <ion-card-content>
     <div class="heading">
       <h2 class="title" #title>register</h2>
@@ -43,8 +46,7 @@
       </ion-item>
     </div>
     <div class="login-btn">
-      <ion-button (click)="onClick()" shape="round"> register </ion-button>
-      <p>Already have an account? <a (click)="signIn()">Sign In</a></p>
+      <ion-button (click)="register()" shape="round"> register </ion-button>
     </div>
   </ion-card-content>
 </ion-card>

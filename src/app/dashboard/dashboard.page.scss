@@ -1,3 +1,51 @@
-table {
-  width: 100%;
+// mobile
+ion-content {
+  --background: #efefef;
+
+  ion-segment {
+    background: var(--ion-color-primary);
+    color: #fff;
+    --color-checked: var(--ion-color-primary);
+    width: 60%;
+    margin: 0 auto;
+    border-radius: 50px;
+    ion-segment-button {
+      --border-radius: 50px;
+      padding: 3px;
+    }
+  }
+
+  ion-note {
+    padding-left: 12px;
+    font-family: Montserrat;
+    font-weight: bold;
+    color: var(--ion-color-primary);
+  }
+
+  ion-item {
+    border-radius: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--ion-color-primary);
+    --min-height: 0;
+    margin: 5px 0;
+
+    .time {
+      display: grid;
+      text-align: center;
+      font-size: 10px;
+      height: 100%;
+      margin-right: 16px;
+    }
+
+    ion-label {
+      padding: 16px 0;
+      border-left: 5px solid #efefef;
+      margin: 0;
+    }
+  }
+
+  table {
+    width: 100%;
+  }
 }

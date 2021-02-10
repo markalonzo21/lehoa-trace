@@ -1,31 +1,25 @@
+// mobile first
 ion-content {
-  --background: url(/assets/img/bg.svg) no-repeat 105% 60%/70%;
-
-  .logo-img {
-    max-width: 50%;
-    width: 30%;
-    margin-left: 20px;
-  }
+  --background: #ffffff;
 
   .logo-2 {
-    background: url(/assets/img/logo2.svg) no-repeat center;
-    width: 30vw;
-    height: 75vh;
-    overflow: hidden;
-    background-size: contain;
-    position: absolute;
-    bottom: 0;
-    left: 5%;
+    display: none;
+  }
+
+  .logo-img {
+    max-width: 70%;
+    width: 100%;
+    display: block;
+    margin: 12px auto;
   }
 
   .btns {
     position: absolute;
-    right: 0;
+    right: 0px;
+    left: 0px;
+    width: 100%;
+    padding: 36px;
     display: grid;
-    left: 64.5%;
-    width: 30%;
-    // transform: translateY(-50%);
-    top: 33%;
 
     ion-button {
       margin-bottom: 16px;
@@ -39,14 +33,51 @@ ion-content {
 
   .cards {
     position: absolute;
-    top: 5%;
     width: 100%;
-    right: -28%;
-
+    top: 0;
+    right: -100%;
+    z-index: 99;
     login-card,
     register-card {
       position: absolute;
       width: 100%;
+    }
+  }
+}
+
+// desktop
+@media only screen and (min-width: 768px) {
+  ion-content {
+    --background: url(/assets/img/bg.svg) no-repeat 105% 60%/70%;
+
+    .logo-img {
+      max-width: 50%;
+      width: 30%;
+      margin-left: 20px;
+    }
+
+    .logo-2 {
+      background: url(/assets/img/logo2.svg) no-repeat center;
+      width: 30vw;
+      height: 75vh;
+      overflow: hidden;
+      background-size: contain;
+      position: absolute;
+      bottom: 0;
+      left: 5%;
+    }
+
+    .btns {
+      position: absolute;
+      right: 0;
+      left: 64.5%;
+      width: 30%;
+      top: 33%;
+    }
+
+    .cards {
+      top: 5%;
+      // width: 100%;
     }
   }
 }

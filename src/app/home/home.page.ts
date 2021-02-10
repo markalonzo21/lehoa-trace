@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from "@angular/core";
-import { AnimationController } from "@ionic/angular";
-import { slideIn, fadeOut } from "../animations/card-animation";
+import { AnimationController, ModalController, Platform } from "@ionic/angular";
+import { webAnimation, mobileAnimation } from "../animations/card-animation";
+import { VehiclemodalComponent } from "../components/vehiclemodal/vehiclemodal.component";
 @Component({
   selector: "app-home",
   templateUrl: "home.page.html",
@@ -9,23 +10,41 @@ import { slideIn, fadeOut } from "../animations/card-animation";
 export class HomePage {
   @ViewChild("cards") cards: ElementRef;
   @ViewChild("btns") btns: ElementRef;
+  @ViewChild("logoImg") logo: ElementRef;
 
   isRegisterCard = false;
+  imgSrc = "assets/img/LEHOA LOGO WITH TEXT.png";
+  private anim;
 
-  constructor(private animationCtrl: AnimationController) {}
+  constructor(
+    private animationCtrl: AnimationController,
+    private platform: Platform,
+    private modalController: ModalController
+  ) {}
+
+  async ionViewWillEnter() {
+    await this.platform.ready();
+    console.log(this.platform.width() <= 600);
+    if (this.platform.width() <= 600) {
+      let logo = this.logo.nativeElement;
+      this.imgSrc = "assets/img/mobile-logo.png";
+      // set animations
+      this.anim = mobileAnimation;
+    } else {
+      this.anim = webAnimation;
+    }
+  }
 
   async showLoginCard() {
-    document
-      .querySelector("register-card")
-      .setAttribute("style", "display:none");
-    await fadeOut(this.btns.nativeElement).play();
-    await slideIn(document.querySelector("login-card")).play();
+    document.querySelector("register-card").setAttribute("style", "z-index: 0");
+    await this.anim.fadeOut(this.btns.nativeElement).play();
+    await this.anim.slideIn(document.querySelector("login-card")).play();
   }
 
   async showResidenceCard() {
-    document.querySelector("login-card").setAttribute("style", "display:none");
-    await fadeOut(this.btns.nativeElement).play();
-    await slideIn(document.querySelector("register-card")).play();
+    // document.querySelector("login-card").setAttribute("style", "display:none");
+    await this.anim.fadeOut(this.btns.nativeElement).play();
+    await this.anim.slideIn(document.querySelector("register-card")).play();
   }
 
   showMerchantCard() {
@@ -33,9 +52,13 @@ export class HomePage {
     // this.animate();
   }
 
-  showVehicleCard() {
-    // this.isRegisterCard = true;
-    // this.animate();
+  async showVehicleModal() {
+    const modal = await this.modalController.create({
+      component: VehiclemodalComponent,
+      cssClass: "qr-modal",
+    });
+
+    await modal.present();
   }
 
   // animate card

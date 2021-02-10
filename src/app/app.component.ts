@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 
-import { ModalController, Platform } from "@ionic/angular";
+import { MenuController, ModalController, Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { QrmodalComponent } from "./components/qrmodal/qrmodal.component";
@@ -16,7 +16,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private modalController: ModalController,
-    private router: Router
+    private router: Router,
+    private menuController: MenuController
   ) {
     this.initializeApp();
   }
@@ -25,7 +26,12 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.menuController.enable(false);
     });
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(false);
   }
 
   async showQr() {
@@ -37,7 +43,9 @@ export class AppComponent {
     await modal.present();
   }
 
-  signOut() {
+  async signOut() {
+    await this.menuController.toggle();
+    await this.menuController.enable(false);
     this.router.navigate(["/"], { replaceUrl: true });
   }
 }

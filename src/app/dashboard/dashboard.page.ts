@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { MenuController, Platform } from "@ionic/angular";
 
 export interface PeriodicElement {
   name: string;
@@ -26,10 +27,32 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ["./dashboard.page.scss"],
 })
 export class DashboardPage implements OnInit {
+  isMobile: boolean;
   displayedColumns: string[] = ["position", "name", "weight", "symbol"];
   dataSource = ELEMENT_DATA;
 
-  constructor() {}
+  constructor(
+    private menuController: MenuController,
+    private platform: Platform
+  ) {
+    if (this.platform.is("android")) {
+      this.isMobile = this.platform.is("android");
+    } else if (this.platform.is("ios")) {
+      this.isMobile = this.platform.is("ios");
+    } else {
+      this.isMobile = false;
+    }
+    console.log(this.isMobile);
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.platform.width() <= 360) {
+    }
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(true);
+  }
+
+  segmentChanged(ev) {}
 }
