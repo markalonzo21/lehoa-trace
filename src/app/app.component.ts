@@ -5,6 +5,7 @@ import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { QrmodalComponent } from "./components/qrmodal/qrmodal.component";
 import { Router } from "@angular/router";
+import { AuthService } from "./core/auth.service";
 @Component({
   selector: "app-root",
   templateUrl: "app.component.html",
@@ -17,7 +18,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     private modalController: ModalController,
     private router: Router,
-    private menuController: MenuController
+    private menuController: MenuController,
+    private authService: AuthService
   ) {
     this.initializeApp();
   }
@@ -46,6 +48,7 @@ export class AppComponent {
   async signOut() {
     await this.menuController.toggle();
     await this.menuController.enable(false);
-    this.router.navigate(["/"], { replaceUrl: true });
+    this.authService.logout();
+    this.router.navigate(["/"]);
   }
 }

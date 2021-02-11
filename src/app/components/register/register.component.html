@@ -7,46 +7,90 @@
       <h2 class="title" #title>register</h2>
       <p>your details to create your account</p>
     </div>
-    <div class="login-fields">
-      <ion-item>
-        <ion-input type="text" placeholder="Firstname"></ion-input>
-        <ion-icon name="person" slot="end" color="light"></ion-icon>
-      </ion-item>
-      <ion-item>
-        <ion-input type="text" placeholder="Middlename"></ion-input>
-        <ion-icon name="person" slot="end" color="light"></ion-icon>
-      </ion-item>
-      <ion-item>
-        <ion-input type="text" placeholder="Lastname"></ion-input>
-        <ion-icon name="person" slot="end" color="light"></ion-icon>
-      </ion-item>
-      <ion-item>
-        <ion-input type="text" placeholder="Suffix"></ion-input>
-        <ion-icon name="person" slot="end" color="light"></ion-icon>
-      </ion-item>
-      <ion-item>
-        <ion-input type="date" placeholder="Birthdate"></ion-input>
-        <ion-icon name="calendar-number" slot="end" color="light"></ion-icon>
-      </ion-item>
-      <ion-item>
-        <ion-input type="email" placeholder="Email"></ion-input>
-        <ion-icon name="mail" slot="end" color="light"></ion-icon>
-      </ion-item>
-      <ion-item>
-        <ion-input type="tel" placeholder="Contact"></ion-input>
-        <ion-icon name="call" slot="end" color="light"></ion-icon>
-      </ion-item>
-      <ion-item>
-        <ion-input type="text" placeholder="Username"></ion-input>
-        <ion-icon name="person" slot="end" color="light"></ion-icon>
-      </ion-item>
-      <ion-item>
-        <ion-input type="password" placeholder="Password"></ion-input>
-        <ion-icon name="lock-closed" slot="end" color="light"></ion-icon>
-      </ion-item>
-    </div>
-    <div class="login-btn">
-      <ion-button (click)="register()" shape="round"> register </ion-button>
-    </div>
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <div class="login-fields">
+        <ion-item>
+          <ion-input
+            type="text"
+            placeholder="Firstname"
+            formControlName="firstname"
+          ></ion-input>
+          <ion-icon name="person" slot="end" color="light"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            type="text"
+            placeholder="Middlename"
+            formControlName="middlename"
+          ></ion-input>
+          <ion-icon name="person" slot="end" color="light"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            type="text"
+            placeholder="Lastname"
+            formControlName="lastname"
+          ></ion-input>
+          <ion-icon name="person" slot="end" color="light"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-select formControlName="suffix" placeholder="Suffix">
+            <ion-select-option value=""></ion-select-option>
+            <ion-select-option value="sr">Sr.</ion-select-option>
+            <ion-select-option value="jr">Jr.</ion-select-option>
+            <ion-select-option value="I">I</ion-select-option>
+            <ion-select-option value="II">II</ion-select-option>
+            <ion-select-option value="III">III</ion-select-option>
+            <ion-select-option value="IV">IV</ion-select-option>
+            <ion-select-option value="V">V</ion-select-option>
+          </ion-select>
+          <ion-icon name="person" slot="end" color="light"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            type="date"
+            placeholder="Birthdate"
+            formControlName="bdate"
+          ></ion-input>
+          <ion-icon name="calendar-number" slot="end" color="light"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            type="email"
+            placeholder="Email"
+            formControlName="email"
+            (ionBlur)="validateEmail($event)"
+          ></ion-input>
+          <ion-icon name="mail" slot="end" color="light"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            type="tel"
+            placeholder="Contact"
+            formControlName="contact"
+          ></ion-input>
+          <ion-icon name="call" slot="end" color="light"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            type="text"
+            placeholder="Username"
+            formControlName="username"
+          ></ion-input>
+          <ion-icon name="person" slot="end" color="light"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+          ></ion-input>
+          <ion-icon name="lock-closed" slot="end" color="light"></ion-icon>
+        </ion-item>
+      </div>
+      <div class="login-btn">
+        <ion-button type="submit" shape="round"> register </ion-button>
+      </div>
+    </form>
   </ion-card-content>
 </ion-card>

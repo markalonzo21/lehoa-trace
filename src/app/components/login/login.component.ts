@@ -1,77 +1,48 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Router } from "@angular/router";
-import {
-  AnimationController,
-  LoadingController,
-  Platform,
-} from "@ionic/angular";
-import {
-  webAnimation,
-  mobileAnimation,
-} from "src/app/animations/card-animation";
+import { AuthService } from "src/app/core/auth.service";
+import { UiService } from "src/app/core/ui.service";
 
 @Component({
   selector: "login-card",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
 })
-export class LoginComponent implements OnInit {
-  private anim: any;
+export class LoginComponent {
+  username: string;
+  password: string;
   constructor(
-    private animationCtrl: AnimationController,
-    private loadingController: LoadingController,
     private router: Router,
-    private platform: Platform
-  ) {
-    if (this.platform.width() <= 600) {
-      this.anim = mobileAnimation;
+    private uiService: UiService,
+    private auth: AuthService
+  ) {}
+
+  login() {
+    if (this.username !== "" && this.password !== "") {
+      this.auth.login(this.username, this.password).subscribe(
+        () => {
+          this.router.navigate(["/dashboard"]);
+        },
+        (err) => {
+          this.uiService.presentToast(err, "danger");
+        }
+      );
     } else {
-      this.anim = webAnimation;
+      this.uiService.presentToast("Username and password required", "danger");
     }
   }
 
-  ngOnInit() {}
-
-  login() {
-    this.presentLoading();
-  }
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      duration: 2000,
-      message:
-        '<div class="loading-img"></div><img src="/assets/img/A.png" alt="loading..."></img>',
-      translucent: true,
-      spinner: null,
-      cssClass: "custom-loading",
-    });
-    await loading.present();
-    this.router.navigate(["/dashboard"]);
-  }
-
   signUp() {
-    this.animationCtrl
-      .create()
-      .addAnimation([
-        this.anim.slideOut(document.querySelector("login-card")).afterStyles({
-          "z-index": "0",
-        }),
-        this.anim
-          .slideIn(document.querySelector("register-card"))
-          .beforeStyles({
-            "z-index": "10",
-          }),
-      ])
-      .play();
+    this.uiService.signUp(
+      document.querySelector("login-card"),
+      document.querySelector("register-card")
+    );
   }
 
   closeCard() {
-    console.log(document.querySelector(".btns"));
-    this.animationCtrl
-      .create()
-      .addAnimation([
-        this.anim.slideOut(document.querySelector("login-card")),
-        this.anim.fadeIn(document.querySelector(".btns")),
-      ])
-      .play();
+    this.uiService.closeCard(
+      document.querySelector("login-card"),
+      document.querySelector(".btns")
+    );
   }
 }
