@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppMaterialModule } from "./app-material/app-material.module";
 import { QrmodalComponent } from "./components/qrmodal/qrmodal.component";
 import { VehiclemodalComponent } from "./components/vehiclemodal/vehiclemodal.component";
+import { AuthService } from "./core/auth.service";
 
 @NgModule({
   declarations: [AppComponent, QrmodalComponent, VehiclemodalComponent],
@@ -37,6 +38,7 @@ import { VehiclemodalComponent } from "./components/vehiclemodal/vehiclemodal.co
     HttpClientModule,
   ],
   providers: [
+    AuthService,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

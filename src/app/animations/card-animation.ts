@@ -4,7 +4,7 @@ import {
   AnimationKeyFrames,
 } from "@ionic/angular";
 
-const DURATION = 500;
+const DURATION = 350;
 const animationCtrl = new AnimationController();
 
 const slideIn = (baseEl: HTMLElement, opts?: any): Animation => {

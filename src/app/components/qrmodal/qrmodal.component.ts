@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
+import { AuthService } from "src/app/core/auth.service";
 
 @Component({
   selector: "app-qrmodal",
@@ -7,9 +8,18 @@ import { ModalController } from "@ionic/angular";
   styleUrls: ["./qrmodal.component.scss"],
 })
 export class QrmodalComponent implements OnInit {
-  constructor(private modalController: ModalController) {}
+  user: any;
+  constructor(
+    private modalController: ModalController,
+    private authService: AuthService
+  ) {}
 
-  ngOnInit() {}
+  deliver() {}
+
+  async ngOnInit() {
+    this.user = await this.authService.getUser();
+    // console.log(this.user);
+  }
 
   modalClose() {
     this.modalController.dismiss();

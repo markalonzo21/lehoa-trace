@@ -29,6 +29,15 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.menuController.enable(false);
+
+      // check user state
+      this.authService.userstate().subscribe((state) => {
+        if (this.authService.isLogedIn()) {
+          this.router.navigate(["/dashboard"]);
+        } else {
+          this.router.navigate(["/"]);
+        }
+      });
     });
   }
 
@@ -48,7 +57,7 @@ export class AppComponent {
   async signOut() {
     await this.menuController.toggle();
     await this.menuController.enable(false);
-    this.authService.logout();
+    await this.authService.logout();
     this.router.navigate(["/"]);
   }
 }

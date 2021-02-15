@@ -1,8 +1,24 @@
 <div class="qr-content">
-  <h1>123456789</h1>
+  <h1>{{ user?.qr_ref }}</h1>
   <p>reference number</p>
   <h2>present this to the admin to get qr code</h2>
-  <ion-button (click)="modalClose()" fill="outline" color="light" shape="round">
-    back
-  </ion-button>
+  <div class="btns">
+    <ion-button
+      (click)="deliver()"
+      expand="block"
+      shape="round"
+      color="secondary"
+    >
+      deliver
+    </ion-button>
+    <ion-button
+      (click)="modalClose()"
+      expand="block"
+      fill="outline"
+      color="light"
+      shape="round"
+    >
+      back
+    </ion-button>
+  </div>
 </div>

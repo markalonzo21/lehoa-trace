@@ -42,16 +42,18 @@ export class DashboardPage implements OnInit {
     } else {
       this.isMobile = false;
     }
-    console.log(this.isMobile);
   }
 
   ngOnInit() {
-    if (this.platform.width() <= 360) {
-    }
+    this.menuController.enable(true);
   }
 
   ionViewWillEnter() {
-    this.menuController.enable(true);
+    this.menuController.close();
+  }
+
+  ionViewWillLeave() {
+    this.menuController.close();
   }
 
   segmentChanged(ev) {}

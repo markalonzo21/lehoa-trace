@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AnimationController, Platform } from "@ionic/angular";
+import { AnimationController, ModalController, Platform } from "@ionic/angular";
 import { UiService } from "src/app/core/ui.service";
 import { UserService } from "src/app/core/user.service";
+import { NotificationComponent } from "../notification/notification.component";
 
 @Component({
   selector: "register-card",
@@ -17,7 +18,8 @@ export class RegisterComponent implements OnInit {
     private platform: Platform,
     private formBuilder: FormBuilder,
     private uiService: UiService,
-    private userService: UserService
+    private userService: UserService,
+    private modalController: ModalController
   ) {
     this.registerForm = this.formBuilder.group({
       firstname: ["", Validators.required],
@@ -39,16 +41,19 @@ export class RegisterComponent implements OnInit {
 
   register() {
     this.userService.register(this.registerForm.value).subscribe(
-      () => {},
+      (data) => {
+        this.registerForm.reset();
+        this.presentModal(data);
+      },
       (err) => {
         this.uiService.presentToast(err, "danger");
       },
       () => {
         this.registerForm.reset();
-        this.uiService.presentAlert().then(async (alert) => {
-          await alert.present();
-          alert.onDidDismiss().then(() => this.closeCard());
-        });
+        // this.uiService.presentAlert().then(async (alert) => {
+        //   await alert.present();
+        //   alert.onDidDismiss().then(() => this.closeCard());
+        // });
       }
     );
   }
@@ -62,6 +67,15 @@ export class RegisterComponent implements OnInit {
         }
       );
     }
+  }
+
+  async presentModal(data: any) {
+    const modal = await this.modalController.create({
+      component: NotificationComponent,
+      componentProps: { data },
+    });
+
+    await modal.present();
   }
 
   signIn() {

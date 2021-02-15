@@ -21,7 +21,9 @@ export class LoginComponent {
     if (this.username !== "" && this.password !== "") {
       this.auth.login(this.username, this.password).subscribe(
         () => {
-          this.router.navigate(["/dashboard"]);
+          this.username = "";
+          this.password = "";
+          this.router.navigate(["/dashboard"], { replaceUrl: true });
         },
         (err) => {
           this.uiService.presentToast(err, "danger");

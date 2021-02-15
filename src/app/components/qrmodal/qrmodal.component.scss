@@ -8,12 +8,14 @@
   text-transform: uppercase;
   padding: 24px;
 
-  h2 {
+  h1 {
     font-weight: bold;
   }
 
-  ion-button {
-    width: 150px;
+  .btns {
     margin-top: 24px;
+    ion-button {
+      --box-shadow: none;
+    }
   }
 }

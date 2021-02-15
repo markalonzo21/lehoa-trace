@@ -24,7 +24,6 @@ export class HomePage {
 
   async ionViewWillEnter() {
     await this.platform.ready();
-    console.log(this.platform.width() <= 600);
     if (this.platform.width() <= 600) {
       let logo = this.logo.nativeElement;
       this.imgSrc = "assets/img/mobile-logo.png";

@@ -13,11 +13,9 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   register(form: any) {
-    return this.http.post(`${this.api}users/register`, form).pipe(
-      take(1),
-      map((data) => console.log(data)),
-      catchError(this.handleError)
-    );
+    return this.http
+      .post(`${this.api}users/register`, form)
+      .pipe(take(1), catchError(this.handleError));
   }
 
   validateEmail(email) {
@@ -25,6 +23,12 @@ export class UserService {
       map((data) => console.log(data)),
       catchError(this.handleError)
     );
+  }
+
+  updateAddress(input: any) {
+    return this.http
+      .post(`${this.api}users/updateAddress`, input)
+      .pipe(take(1), catchError(this.handleError));
   }
 
   private handleError(err) {

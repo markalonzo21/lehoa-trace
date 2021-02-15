@@ -12,9 +12,24 @@ const { Storage } = Plugins;
 })
 export class AuthService {
   private api = environment.api;
-  userState = new BehaviorSubject<boolean>(null);
+  private userState = new BehaviorSubject<boolean>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.checkUserState();
+  }
+
+  userstate() {
+    return this.userState.asObservable();
+  }
+
+  private async checkUserState() {
+    const user = await this.getUser();
+    if (user) {
+      this.userState.next(true);
+    } else {
+      this.userState.next(false);
+    }
+  }
 
   login(username: string, password: string) {
     return this.http
@@ -28,8 +43,10 @@ export class AuthService {
   }
 
   async logout() {
-    await Storage.remove({ key: "user" });
-    this.userState.next(false);
+    await Storage.remove({ key: "user" }).then((_) => {
+      console.log("storage cleared");
+      this.userState.next(false);
+    });
   }
 
   isLogedIn() {
@@ -42,7 +59,8 @@ export class AuthService {
   }
 
   async getUser() {
-    return await Storage.get({ key: "user" });
+    const ret = await Storage.get({ key: "user" });
+    return JSON.parse(ret.value);
   }
 
   handleError(err) {
