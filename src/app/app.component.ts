@@ -6,6 +6,7 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { QrmodalComponent } from "./components/qrmodal/qrmodal.component";
 import { Router } from "@angular/router";
 import { AuthService } from "./core/auth.service";
+import { TraceService } from "./core/trace.service";
 @Component({
   selector: "app-root",
   templateUrl: "app.component.html",
@@ -19,7 +20,8 @@ export class AppComponent {
     private modalController: ModalController,
     private router: Router,
     private menuController: MenuController,
-    private authService: AuthService
+    private authService: AuthService,
+    private traceService: TraceService
   ) {
     this.initializeApp();
   }
@@ -55,6 +57,7 @@ export class AppComponent {
   }
 
   async signOut() {
+    this.traceService.unsubscribe();
     await this.menuController.toggle();
     await this.menuController.enable(false);
     await this.authService.logout();

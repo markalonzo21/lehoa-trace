@@ -7,7 +7,7 @@
       <h2 class="title" #title>register</h2>
       <p>your details to create your account</p>
     </div>
-    <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <form [formGroup]="merchantForm" (ngSubmit)="register()">
       <div class="login-fields">
         <div class="form-group">
           <ion-item>
@@ -60,6 +60,14 @@
             <mat-radio-button value="male">Male</mat-radio-button>
             <mat-radio-button value="female">Female</mat-radio-button>
           </mat-radio-group>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            type="text"
+            placeholder="Company name"
+            formControlName="company_name"
+          ></ion-input>
+          <ion-icon name="business" slot="end" color="light"></ion-icon>
         </ion-item>
         <ion-item>
           <ion-input

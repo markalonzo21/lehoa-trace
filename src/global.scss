@@ -47,6 +47,33 @@ p {
   font-family: Montserrat;
 }
 
+::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.form-group {
+  width: 50%;
+  display: inline-block;
+  padding: 5px;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: var(--ion-color-light-rgb);
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  color: rgb(244, 245, 248);
+  background-color: rgb(244, 245, 248);
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: rgb(60, 108, 185, 0.26);
+}
+
+.toUpper {
+  text-transform: uppercase;
+}
+
 .qr-modal .modal-wrapper {
   background: var(--ion-color-primary);
   color: var(--ion-color-light);

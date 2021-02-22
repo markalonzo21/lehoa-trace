@@ -1,27 +1,31 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { IonicModule } from "@ionic/angular";
+
 import { LoginComponent } from "./login/login.component";
+import { CameramodalComponent } from "./cameramodal/cameramodal.component";
 import { RegisterComponent } from "./register/register.component";
+import { MerchantComponent } from "./merchant/merchant.component";
 import { NotificationComponent } from "./notification/notification.component";
 import { SuccessComponent } from "./notification/success/success.component";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatIconModule } from "@angular/material/icon";
 
+import { SharedModule } from "../shared/shared.module";
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
+    CameramodalComponent,
+    MerchantComponent,
     NotificationComponent,
     SuccessComponent,
   ],
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatIconModule,
+  imports: [SharedModule],
+  exports: [
+    LoginComponent,
+    CameramodalComponent,
+    RegisterComponent,
+    MerchantComponent,
+    NotificationComponent,
+    SuccessComponent,
+    SharedModule,
   ],
-  exports: [LoginComponent, RegisterComponent],
 })
 export class ComponentsModule {}

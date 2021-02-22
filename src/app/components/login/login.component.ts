@@ -11,6 +11,7 @@ import { UiService } from "src/app/core/ui.service";
 export class LoginComponent {
   username: string;
   password: string;
+  merchant: boolean = false;
   constructor(
     private router: Router,
     private uiService: UiService,
@@ -19,7 +20,7 @@ export class LoginComponent {
 
   login() {
     if (this.username !== "" && this.password !== "") {
-      this.auth.login(this.username, this.password).subscribe(
+      this.auth.login(this.username, this.password, this.merchant).subscribe(
         () => {
           this.username = "";
           this.password = "";

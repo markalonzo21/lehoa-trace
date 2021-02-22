@@ -46,9 +46,9 @@ export class HomePage {
     await this.anim.slideIn(document.querySelector("register-card")).play();
   }
 
-  showMerchantCard() {
-    // this.isRegisterCard = true;
-    // this.animate();
+  async showMerchantCard() {
+    await this.anim.fadeOut(this.btns.nativeElement).play();
+    await this.anim.slideIn(document.querySelector("merchant-card")).play();
   }
 
   async showVehicleModal() {

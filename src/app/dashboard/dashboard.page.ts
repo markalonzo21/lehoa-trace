@@ -1,26 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { MenuController, Platform } from "@ionic/angular";
-
+import { Component, HostListener, OnInit } from "@angular/core";
+import { MenuController, ModalController, Platform } from "@ionic/angular";
+import { Observable } from "rxjs";
+import { CameramodalComponent } from "../components/cameramodal/cameramodal.component";
+import { AuthService } from "../core/auth.service";
+import { Trace, TraceService } from "../core/trace.service";
 export interface PeriodicElement {
   name: string;
   position: number;
   weight: number;
   symbol: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: "Hydrogen", weight: 1.0079, symbol: "H" },
-  { position: 2, name: "Helium", weight: 4.0026, symbol: "He" },
-  { position: 3, name: "Lithium", weight: 6.941, symbol: "Li" },
-  { position: 4, name: "Beryllium", weight: 9.0122, symbol: "Be" },
-  { position: 5, name: "Boron", weight: 10.811, symbol: "B" },
-  { position: 6, name: "Carbon", weight: 12.0107, symbol: "C" },
-  { position: 7, name: "Nitrogen", weight: 14.0067, symbol: "N" },
-  { position: 8, name: "Oxygen", weight: 15.9994, symbol: "O" },
-  { position: 9, name: "Fluorine", weight: 18.9984, symbol: "F" },
-  { position: 10, name: "Neon", weight: 20.1797, symbol: "Ne" },
-];
-
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.page.html",
@@ -28,13 +17,25 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class DashboardPage implements OnInit {
   isMobile: boolean;
-  displayedColumns: string[] = ["position", "name", "weight", "symbol"];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ["date", "age", "gender"];
+
+  scanResult = null;
+  traceList: Observable<any>;
+  barCode: string = "";
 
   constructor(
     private menuController: MenuController,
-    private platform: Platform
+    private platform: Platform,
+    private modalController: ModalController,
+    private traceService: TraceService,
+    private authService: AuthService
   ) {
+    // check if it is ios device
+    const isInStandaloneMode = () =>
+      "standalone" in window.navigator && window.navigator["standalond"];
+    if (platform.is("ios") && isInStandaloneMode) {
+      console.log("ios pwa mode");
+    }
     if (this.platform.is("android")) {
       this.isMobile = this.platform.is("android");
     } else if (this.platform.is("ios")) {
@@ -44,8 +45,50 @@ export class DashboardPage implements OnInit {
     }
   }
 
+  //barcode scanner
+  @HostListener("window: keypress", ["$event"])
+  handleEvent(ev: KeyboardEvent) {
+    if (ev.key !== "Enter") {
+      this.barCode += ev.key;
+    }
+    if (ev.key == "Enter") {
+      // check if pattern exist
+      let scanCode = this.barCode.match(/\bLEHOA\=\?\>\</g);
+      if (scanCode !== null) {
+        // extract data
+        this.scanResult = this.barCode.replace(/\bLEHOA\=\?\>\</g, "");
+        this.saveScan();
+      }
+      this.barCode = "";
+    }
+  }
+
+  async startScan() {
+    const modal = await this.modalController.create({
+      component: CameramodalComponent,
+    });
+    await modal.present();
+    this.scanResult = (await modal.onWillDismiss()).data;
+    this.saveScan();
+  }
+
+  async saveScan() {
+    let user = await this.authService.getUser();
+    let parseResult = JSON.parse(this.scanResult);
+
+    parseResult.date = new Date();
+    parseResult.merchant = user._id;
+    parseResult.age = this.traceService.calculateAge(parseResult.age);
+    this.traceService.addToList(parseResult);
+  }
+
   ngOnInit() {
     this.menuController.enable(true);
+    if (this.isMobile) {
+      this.traceList = this.traceService.getTraceList();
+    } else {
+      this.traceList = this.traceService.getObservableTraceList();
+    }
   }
 
   ionViewWillEnter() {
@@ -56,5 +99,7 @@ export class DashboardPage implements OnInit {
     this.menuController.close();
   }
 
-  segmentChanged(ev) {}
+  segmentChanged(ev) {
+    this.traceService.toggleValue.next(ev.target.value);
+  }
 }

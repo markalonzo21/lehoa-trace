@@ -31,9 +31,10 @@ export class AuthService {
     }
   }
 
-  login(username: string, password: string) {
+  login(username: string, password: string, merchant: boolean) {
+    const route = merchant ? "merchants" : "users";
     return this.http
-      .post(`${this.api}users/login`, { username, password })
+      .post(`${this.api}${route}/login`, { username, password })
       .pipe(
         map((data) => {
           this.setUser(data);

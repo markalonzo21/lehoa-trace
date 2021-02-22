@@ -5,11 +5,16 @@
   right: 0;
   transform: translateY(-50%);
   text-align: center;
-  text-transform: uppercase;
   padding: 24px;
 
   h1 {
     font-weight: bold;
+  }
+
+  .desc {
+    line-height: 1.5em;
+    font-weight: bold;
+    font-style: italic;
   }
 
   .btns {

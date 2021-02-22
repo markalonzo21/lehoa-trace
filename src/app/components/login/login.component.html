@@ -21,6 +21,10 @@
         ></ion-input>
         <ion-icon name="lock-closed" slot="end" color="light"></ion-icon>
       </ion-item>
+      <div class="checkbox">
+        <input type="checkbox" id="merchant" [(ngModel)]="merchant" />
+        <label for="merchant">Merchant</label>
+      </div>
     </div>
     <div class="login-btn">
       <ion-button (click)="login()" shape="round"> login </ion-button>

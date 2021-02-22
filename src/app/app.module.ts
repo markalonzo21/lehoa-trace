@@ -18,6 +18,7 @@ import { AppMaterialModule } from "./app-material/app-material.module";
 import { QrmodalComponent } from "./components/qrmodal/qrmodal.component";
 import { VehiclemodalComponent } from "./components/vehiclemodal/vehiclemodal.component";
 import { AuthService } from "./core/auth.service";
+import { TraceService } from "./core/trace.service";
 
 @NgModule({
   declarations: [AppComponent, QrmodalComponent, VehiclemodalComponent],
@@ -38,6 +39,7 @@ import { AuthService } from "./core/auth.service";
     HttpClientModule,
   ],
   providers: [
+    TraceService,
     AuthService,
     StatusBar,
     SplashScreen,

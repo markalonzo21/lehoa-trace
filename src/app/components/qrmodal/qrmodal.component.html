@@ -1,7 +1,10 @@
 <div class="qr-content">
   <h1>{{ user?.qr_ref }}</h1>
-  <p>reference number</p>
-  <h2>present this to the admin to get qr code</h2>
+  <p class="toUpper">reference number</p>
+  <p class="desc">
+    Present this to the admin to get your QR code sticker or click the deliver
+    button to deliver your QR code sticker to your registered address.
+  </p>
   <div class="btns">
     <ion-button
       (click)="deliver()"
