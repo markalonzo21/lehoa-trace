@@ -1,0 +1,46 @@
+// mobile
+ion-note {
+  padding-left: 12px;
+  font-family: Montserrat;
+  font-weight: bold;
+  color: var(--ion-color-primary);
+}
+
+ion-grid {
+  ion-row {
+    background: #fff;
+    border-bottom: 5px solid #efefef;
+    border-radius: 10px;
+
+    .col-data {
+      border-left: 5px solid #efefef;
+    }
+
+    .time {
+      font-size: 12px;
+      text-align: center;
+      display: grid;
+    }
+
+    .data {
+      text-align: center;
+      padding: 8px 0;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.empty-data {
+  text-align: center;
+  color: var(--ion-color-medium);
+  position: absolute;
+  top: 0;
+  transform: translateY(50%);
+  img {
+    max-width: 65%;
+  }
+}
+
+table {
+  width: 100%;
+}

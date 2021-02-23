@@ -1,8 +1,19 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Subscription, throwError } from "rxjs";
-import { catchError, filter, map, switchMap, take } from "rxjs/operators";
+import { BehaviorSubject, from, iif, Subscription, throwError } from "rxjs";
+import {
+  catchError,
+  filter,
+  flatMap,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+} from "rxjs/operators";
 import { environment } from "src/environments/environment";
+import { Plugins } from "@capacitor/core";
+
+const { Storage } = Plugins;
 
 export interface Trace {
   date: string;
@@ -31,11 +42,33 @@ export class TraceService {
     );
     this.subscriptions.add(this.observableTraceList);
     this.subscriptions.add(this.toggleValue);
+  }
+
+  loadData() {
     // load data from server unmanged
-    this.getAllTraces().subscribe((list) => {
-      this.trace_list = list;
-      this.observableTraceList.next(Object.assign([], this.trace_list));
-    });
+    let serverData = from(Storage.get({ key: "type" }))
+      .pipe(
+        mergeMap((ret) =>
+          from(Storage.get({ key: "user" })).pipe(
+            map((user) => {
+              return { logType: ret.value, user: JSON.parse(user.value) };
+            })
+          )
+        ),
+        flatMap((data) =>
+          iif(
+            () => data.logType === "merchant",
+            this.getAllTraces(data.user._id),
+            this.getAllUserTraces(data.user._id)
+          )
+        )
+      )
+      .subscribe((list) => {
+        this.trace_list = list;
+        console.log(this.trace_list);
+        this.observableTraceList.next(Object.assign([], this.trace_list));
+      });
+    this.subscriptions.add(serverData);
   }
 
   addToList(scanResult: any) {
@@ -126,9 +159,18 @@ export class TraceService {
       .subscribe();
   }
 
-  // data from server
-  private getAllTraces() {
-    return this.http.get(`${api}traces`).pipe(
+  // data from server : merchant
+  private getAllTraces(_id: string) {
+    return this.http.post(`${api}traces/merchant`, { merchant: _id }).pipe(
+      take(1),
+      filter((data: Trace[]) => data.length > 0),
+      catchError(this.handleError)
+    );
+  }
+
+  // data from server : user
+  private getAllUserTraces(_id: string) {
+    return this.http.post(`${api}traces/user`, { user: _id }).pipe(
       take(1),
       filter((data: Trace[]) => data.length > 0),
       catchError(this.handleError)

@@ -33,6 +33,7 @@ export class AuthService {
 
   login(username: string, password: string, merchant: boolean) {
     const route = merchant ? "merchants" : "users";
+    this.setloginType(merchant ? "merchant" : "user");
     return this.http
       .post(`${this.api}${route}/login`, { username, password })
       .pipe(
@@ -52,6 +53,15 @@ export class AuthService {
 
   isLogedIn() {
     return this.userState.getValue();
+  }
+
+  async setloginType(type: string) {
+    await Storage.set({ key: "type", value: type });
+  }
+
+  async getloginType() {
+    const { value } = await Storage.get({ key: "type" });
+    return value;
   }
 
   async setUser(data: Object) {

@@ -17,11 +17,12 @@ export interface PeriodicElement {
 })
 export class DashboardPage implements OnInit {
   isMobile: boolean;
-  displayedColumns: string[] = ["date", "age", "gender"];
 
   scanResult = null;
   traceList: Observable<any>;
   barCode: string = "";
+
+  userType: string;
 
   constructor(
     private menuController: MenuController,
@@ -76,23 +77,25 @@ export class DashboardPage implements OnInit {
     let user = await this.authService.getUser();
     let parseResult = JSON.parse(this.scanResult);
 
-    parseResult.date = new Date();
+    parseResult.date = new Date().toISOString();
     parseResult.merchant = user._id;
     parseResult.age = this.traceService.calculateAge(parseResult.age);
     this.traceService.addToList(parseResult);
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.menuController.enable(true);
     if (this.isMobile) {
       this.traceList = this.traceService.getTraceList();
     } else {
       this.traceList = this.traceService.getObservableTraceList();
     }
+    this.userType = await this.authService.getloginType();
   }
 
   ionViewWillEnter() {
     this.menuController.close();
+    this.traceService.loadData();
   }
 
   ionViewWillLeave() {
