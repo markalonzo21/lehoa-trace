@@ -4,7 +4,7 @@ import {
   AnimationKeyFrames,
 } from "@ionic/angular";
 
-const DURATION = 400;
+const DURATION = 250;
 const animationCtrl = new AnimationController();
 
 export const enterAnimation = (baseEl: HTMLElement, opts?: any): Animation => {

@@ -75,12 +75,14 @@ export class DashboardPage implements OnInit {
 
   async saveScan() {
     let user = await this.authService.getUser();
-    let parseResult = JSON.parse(this.scanResult);
+    if (user) {
+      let parseResult = JSON.parse(this.scanResult);
 
-    parseResult.date = new Date().toISOString();
-    parseResult.merchant = user._id;
-    parseResult.age = this.traceService.calculateAge(parseResult.age);
-    this.traceService.addToList(parseResult);
+      parseResult.date = new Date().toISOString();
+      parseResult.merchant = user._id;
+      parseResult.age = this.traceService.calculateAge(parseResult.age);
+      this.traceService.addToList(parseResult);
+    }
   }
 
   async ngOnInit() {
@@ -94,13 +96,10 @@ export class DashboardPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.menuController.close();
     this.traceService.loadData();
   }
 
-  ionViewWillLeave() {
-    this.menuController.close();
-  }
+  ionViewWillLeave() {}
 
   segmentChanged(ev) {
     this.traceService.toggleValue.next(ev.target.value);

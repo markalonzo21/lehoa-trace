@@ -1,20 +1,23 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { SimpleMaskModule } from "ngx-ion-simple-mask";
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from "@ionic/angular";
 
-import { ProfilePageRoutingModule } from './profile-routing.module';
+import { ProfilePageRoutingModule } from "./profile-routing.module";
 
-import { ProfilePage } from './profile.page';
+import { ProfilePage } from "./profile.page";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
-    ProfilePageRoutingModule
+    ProfilePageRoutingModule,
+    SimpleMaskModule,
   ],
-  declarations: [ProfilePage]
+  declarations: [ProfilePage],
 })
 export class ProfilePageModule {}

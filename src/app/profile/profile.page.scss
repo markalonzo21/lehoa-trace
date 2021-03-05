@@ -1,3 +1,32 @@
+ion-header {
+  min-height: 25%;
+  background: var(--ion-color-primary);
+  color: #fff;
+
+  ion-toolbar {
+    --background: transparent;
+    --color: #ffffff;
+  }
+
+  .header-name {
+    font-weight: bold;
+    font-size: 22px;
+    padding: 12px 0;
+    text-align: center;
+  }
+}
+
 ion-content {
-  --background: #efefef;
+  ion-item {
+    --background: transparent;
+    color: var(--ion-color-primary);
+
+    span {
+      padding: 6px 0;
+    }
+  }
+}
+
+ion-button {
+  margin: 16px;
 }

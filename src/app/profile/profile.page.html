@@ -4,7 +4,69 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>My Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="readOnly = !readOnly">
+        <ion-icon slot="icon-only" name="pencil"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+  <div class="header-name">{{ user?.firstname | titlecase }}</div>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content *ngIf="user">
+  <ion-list class="ion-padding" *ngIf="readOnly; else edit">
+    <ion-item>
+      <ion-label position="stacked">Contact:</ion-label>
+      <span>{{ user.contact }}</span>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Birthdate:</ion-label>
+      <span>{{ user.bdate | date: 'MM/dd/yyyy' }}</span>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Gender:</ion-label>
+      <span>{{ user.gender }}</span>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Address:</ion-label>
+      <span>{{ user?.address }}</span>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Email:</ion-label>
+      <span>{{ user.email }}</span>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Username:</ion-label>
+      <span>{{ user.username }}</span>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #edit>
+    <form [formGroup]="userForm" (ngSubmit)="updateProfile()">
+      <ion-list class="ion-padding">
+        <ion-item>
+          <ion-label position="stacked">Contact:</ion-label>
+          <ion-input
+            simpleMask="(+99) 9-999-9999-99"
+            type="tel"
+            placeholder="(+63) 9-435-1234-89"
+            formControlName="contact"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Address:</ion-label>
+          <ion-input type="text" formControlName="address"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Email:</ion-label>
+          <ion-input type="email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Username:</ion-label>
+          <ion-input type="text" formControlName="username"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button type="submit" expand="block"> Update profile </ion-button>
+    </form>
+  </ng-template>
+</ion-content>

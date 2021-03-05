@@ -74,6 +74,10 @@ export class AuthService {
     return JSON.parse(ret.value);
   }
 
+  async updateUser(data: Object) {
+    await Storage.set({ key: "user", value: JSON.stringify(data) });
+  }
+
   handleError(err) {
     const msg = `Error: ${err.error}`;
     return throwError(msg);

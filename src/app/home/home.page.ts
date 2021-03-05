@@ -13,7 +13,7 @@ export class HomePage {
   @ViewChild("logoImg") logo: ElementRef;
 
   isRegisterCard = false;
-  imgSrc = "assets/img/LEHOA LOGO WITH TEXT.png";
+  imgSrc = "";
   private anim;
 
   constructor(
@@ -24,12 +24,13 @@ export class HomePage {
 
   async ionViewWillEnter() {
     await this.platform.ready();
-    if (this.platform.width() <= 600) {
+    if (this.platform.width() <= 1281) {
       let logo = this.logo.nativeElement;
       this.imgSrc = "assets/img/mobile-logo.png";
       // set animations
       this.anim = mobileAnimation;
     } else {
+      this.imgSrc = "assets/img/LEHOA LOGO WITH TEXT.png";
       this.anim = webAnimation;
     }
   }

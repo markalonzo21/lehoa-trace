@@ -1,23 +1,31 @@
 <ion-app>
-  <ion-menu contentId="main" menuId="menu-content" side="start" type="overlay">
+  <ion-menu contentId="main" side="start" type="overlay">
     <ion-content class="ion-padding">
       <ion-list>
-        <ion-item routerLink="/dashboard">
-          <ion-icon name="calendar-outline"></ion-icon>
-          <ion-label>Daily Logs</ion-label>
-        </ion-item>
+        <ion-menu-toggle>
+          <ion-item routerLink="/dashboard">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <ion-label>Daily Logs</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
         <ion-item routerLink="/profile">
           <ion-icon name="person"></ion-icon>
           <ion-label>Profile</ion-label>
         </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
         <ion-item button (click)="showQr()">
           <ion-icon name="qr-code-outline"></ion-icon>
           <ion-label>QR Code</ion-label>
         </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
         <ion-item button (click)="signOut()">
           <ion-icon class="logout" name="log-out-outline"></ion-icon>
           <ion-label>Sign out</ion-label>
         </ion-item>
+      </ion-menu-toggle>
       </ion-list>
     </ion-content>
   </ion-menu>

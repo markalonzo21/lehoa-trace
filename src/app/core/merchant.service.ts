@@ -8,18 +8,24 @@ import { environment } from "src/environments/environment";
   providedIn: "root",
 })
 export class MerchantService {
-  private api = environment.api;
+  private api = environment.api + "merchants";
 
   constructor(private http: HttpClient) {}
 
   register(form: any) {
     return this.http
-      .post(`${this.api}merchants/register`, form)
+      .post(`${this.api}/register`, form)
+      .pipe(take(1), catchError(this.handleError));
+  }
+
+  updateUser(id: string, form: any) {
+    return this.http
+      .patch(`${this.api}/update/${id}`, form)
       .pipe(take(1), catchError(this.handleError));
   }
 
   validateEmail(email) {
-    return this.http.post(`${this.api}merchants/validateEmail`, email).pipe(
+    return this.http.post(`${this.api}/validateEmail`, email).pipe(
       map((data) => console.log(data)),
       catchError(this.handleError)
     );
@@ -27,7 +33,7 @@ export class MerchantService {
 
   updateAddress(input: any) {
     return this.http
-      .post(`${this.api}merchants/updateAddress`, input)
+      .post(`${this.api}/updateAddress`, input)
       .pipe(take(1), catchError(this.handleError));
   }
 

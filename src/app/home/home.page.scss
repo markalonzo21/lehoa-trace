@@ -14,9 +14,6 @@ ion-content {
   }
 
   .btns {
-    position: absolute;
-    right: 0px;
-    left: 0px;
     width: 100%;
     padding: 36px;
     display: grid;
@@ -47,7 +44,7 @@ ion-content {
 }
 
 // desktop
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1281px) {
   ion-content {
     --background: url(/assets/img/bg.svg) no-repeat 105% 60%/70%;
 

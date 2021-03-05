@@ -24,7 +24,7 @@ export class UiService {
     private toastController: ToastController,
     private alertController: AlertController
   ) {
-    if (this.platform.width() <= 600) {
+    if (this.platform.width() <= 1281) {
       this.anim = mobileAnimation;
     } else {
       this.anim = webAnimation;
