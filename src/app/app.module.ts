@@ -51,11 +51,11 @@ import { UiService } from "./core/ui.service";
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: HttpLoadingInterceptor,
-    //   multi: true,
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpLoadingInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
