@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, from, iif, Subscription, throwError } from "rxjs";
+import { BehaviorSubject, EMPTY, from, iif, Subscription } from "rxjs";
 import {
   catchError,
   filter,
@@ -12,9 +12,11 @@ import {
 } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { Plugins } from "@capacitor/core";
+import { UiService } from "./ui.service";
+import { NetworkService } from "./network.service";
+import { OfflineManagerService } from "./offline-manager.service";
 
 const { Storage } = Plugins;
-
 export interface Trace {
   date: string;
   user: string;
@@ -35,7 +37,12 @@ export class TraceService {
 
   toggleValue: BehaviorSubject<string> = new BehaviorSubject("today");
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private uiService: UiService,
+    private networkService: NetworkService,
+    private offlineManager: OfflineManagerService
+  ) {
     // initialized subjects
     this.observableTraceList = <BehaviorSubject<Trace[]>>(
       new BehaviorSubject([])
@@ -72,8 +79,15 @@ export class TraceService {
   }
 
   addToList(scanResult: any) {
-    this.trace_list.push(scanResult);
-    this.save(scanResult);
+    // this.trace_list.push(scanResult);
+    this.trace_list.unshift(scanResult);
+    this.networkService.getCurrentNetworkStatus().then((status) => {
+      if (status.connected) {
+        this.save(scanResult);
+      } else {
+        this.offlineManager.saveToLocal(scanResult);
+      }
+    });
     this.observableTraceList.next(Object.assign([], this.trace_list));
   }
 
@@ -164,7 +178,7 @@ export class TraceService {
     return this.http.post(`${api}traces/merchant`, { merchant: _id }).pipe(
       take(1),
       filter((data: Trace[]) => data.length > 0),
-      catchError(this.handleError)
+      catchError((err) => this.handleError(err))
     );
   }
 
@@ -173,12 +187,16 @@ export class TraceService {
     return this.http.post(`${api}traces/user`, { user: _id }).pipe(
       take(1),
       filter((data: Trace[]) => data.length > 0),
-      catchError(this.handleError)
+      catchError((err) => this.handleError(err))
     );
   }
 
   private handleError(err) {
     const msg = `Error: ${err.error}`;
-    return throwError(msg);
+    this.uiService.presentToast(
+      "Opps something went wrong, Please reload the app",
+      "danger"
+    );
+    return EMPTY;
   }
 }
