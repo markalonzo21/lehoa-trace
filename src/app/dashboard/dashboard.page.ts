@@ -71,8 +71,10 @@ export class DashboardPage implements OnInit {
     // await modal.present();
     // let scanData = (await modal.onWillDismiss()).data;
     // this.scanResult = scanData ? scanData : null;
+    // console.log("scanResult", this.scanResult);
     this.scanResult = JSON.stringify({
       user: "602dd6fa6f91870fa8119877",
+      name: "jorge marcus kaysen",
       age: 28,
       gender: "male",
     });

@@ -33,7 +33,6 @@ export class AuthService {
 
   login(username: string, password: string, merchant: boolean) {
     const route = merchant ? "merchants" : "users";
-    console.log(route);
     this.setloginType(merchant ? "merchant" : "user");
     return this.http
       .post(`${this.api}${route}/login`, { username, password })
@@ -80,6 +79,7 @@ export class AuthService {
   }
 
   handleError(err) {
+    console.log(err);
     const msg = `Error: ${err.error}`;
     return throwError(msg);
   }

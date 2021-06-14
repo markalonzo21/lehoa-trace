@@ -11,7 +11,7 @@ export class MerchantComponent implements OnInit {
   @Input() traceList: Observable<any>;
   @Input() isMobile: boolean;
 
-  displayedColumns: string[] = ["date", "age", "gender"];
+  displayedColumns: string[] = ["date", "time", "name", "age", "gender"];
 
   constructor() {}
 

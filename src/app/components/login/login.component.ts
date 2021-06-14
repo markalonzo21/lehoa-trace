@@ -9,8 +9,8 @@ import { UiService } from "src/app/core/ui.service";
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent {
-  username: string;
-  password: string;
+  username: string = "";
+  password: string = "";
   merchant: boolean = false;
   constructor(
     private router: Router,
@@ -27,6 +27,7 @@ export class LoginComponent {
           this.router.navigate(["/dashboard"], { replaceUrl: true });
         },
         (err) => {
+          console.log(err);
           this.uiService.presentToast(err, "danger");
         }
       );

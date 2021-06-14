@@ -10,7 +10,7 @@ export class UserComponent implements OnInit {
   @Input() traceList: Observable<any>;
   @Input() isMobile: boolean;
 
-  displayedColumns: string[] = ["date", "age", "gender"];
+  displayedColumns: string[] = ["date", "time", "company", "age", "gender"];
 
   constructor() {}
 

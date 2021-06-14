@@ -1,0 +1,137 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary">
+        <ion-icon
+          slot="icon-only"
+          size="large"
+          [name]="steps[activeStepIndex].icon"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="step-title">
+        <span class="title-index"
+          ><span class="active-step">STEP {{ activeStepIndex + 1 }}</span>/{{
+          steps.length }}
+        </span>
+        <p class="title-label">{{ steps[activeStepIndex].label }}</p>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-progress-bar [value]="steps[activeStepIndex].progress"></ion-progress-bar>
+
+<ion-content class="ion-padding">
+  <ng-container
+    *ngFor="let form of masterForm; let i = index, trackBy: trackByFn"
+  >
+    <form
+      [formGroup]="masterForm[i]"
+      *ngIf="i === activeStepIndex || masterForm.length === 1"
+    >
+      <div class="field-container">
+        <div
+          *ngFor="let field of formFields[i]; trackBy: trackByFn"
+          [ngSwitch]="currentFormContent[i][field].type"
+        >
+          <!-- FORMS -->
+          <ng-container *ngSwitchCase="'select'">
+            <ion-item>
+              <ion-label
+                >{{currentFormContent[i][field].placeholder}}</ion-label
+              >
+              <ion-select
+                [formControlName]="field"
+                [multiple]="currentFormContent[i][field].multiple"
+              >
+                <ion-select-option
+                  *ngFor="let option of currentFormContent[i][field].options; trackBy: trackByFn"
+                  [value]="option.type"
+                  >{{ option.type | titlecase }}</ion-select-option
+                >
+              </ion-select>
+            </ion-item>
+          </ng-container>
+          <ng-container *ngSwitchCase="'checkbox'">
+            <ion-item>
+              <ion-text color="primary">
+                <p>{{ currentFormContent[i][field].placeholder }}</p>
+              </ion-text>
+              <ion-checkbox
+                class="privacy-checkbox"
+                slot="start"
+                [formControlName]="field"
+              ></ion-checkbox>
+            </ion-item>
+          </ng-container>
+          <ng-container *ngSwitchCase="'radio'">
+            <ion-item class="ion-no-padding ui-toggle">
+              <ui-switch
+                color="#3c6cb9"
+                checkedTextColor="white"
+                uncheckedTextColor="#3c6cb9"
+                checkedLabel="YES"
+                uncheckedLabel="NO"
+                [checked]="false"
+                (valueChange)="onValueChange($event, masterForm[i], field)"
+              ></ui-switch>
+              <input type="text" [formControlName]="field" hidden />
+              <ion-text class="ui-toggle-text" color="primary">
+                <p>{{currentFormContent[i][field].placeholder}}</p>
+              </ion-text>
+            </ion-item>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <ion-item>
+              <ion-label position="floating"
+                >{{currentFormContent[i][field].placeholder}}</ion-label
+              >
+              <ion-input
+                [type]="currentFormContent[i][field].type"
+                [placeholder]="currentFormContent[i][field].type === 'date' ? currentFormContent[i][field].placeholder: null"
+                [formControlName]="field"
+                [id]="field"
+              ></ion-input>
+            </ion-item>
+          </ng-container>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-button
+      (click)="goToStep('prev')"
+      slot="start"
+      fill="outline"
+      color="medium"
+      [disabled]="!activeStepIndex"
+    >
+      <ion-icon slot="start" name="arrow-back-sharp"></ion-icon>
+      previous
+    </ion-button>
+    <ion-button
+      (click)="goToStep('next')"
+      slot="end"
+      [hidden]="activeStepIndex === steps.length - 1"
+      [disabled]="masterForm[activeStepIndex].invalid"
+    >
+      <ion-icon slot="end" name="arrow-forward-sharp"></ion-icon>
+      next
+    </ion-button>
+
+    <ion-button
+      *ngIf="activeStepIndex === steps.length - 1"
+      (click)="onFormSubmit()"
+      type="submit"
+      slot="end"
+      [disabled]="masterForm[activeStepIndex].invalid"
+    >
+      <ion-icon slot="start" name="checkmark-sharp"></ion-icon>
+      submit
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

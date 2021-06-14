@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
 import { AnimationController, ModalController, Platform } from "@ionic/angular";
 import { webAnimation, mobileAnimation } from "../animations/card-animation";
 import { VehiclemodalComponent } from "../components/vehiclemodal/vehiclemodal.component";
@@ -19,7 +20,8 @@ export class HomePage {
   constructor(
     private animationCtrl: AnimationController,
     private platform: Platform,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private router: Router
   ) {}
 
   async ionViewWillEnter() {
@@ -59,6 +61,10 @@ export class HomePage {
     });
 
     await modal.present();
+  }
+
+  getVacinated() {
+    this.router.navigate(["/vaccine-registration"]);
   }
 
   // animate card

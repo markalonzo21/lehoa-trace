@@ -37,6 +37,10 @@ const routes: Routes = [
       import("./profile/profile.module").then((m) => m.ProfilePageModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'vaccine-registration',
+    loadChildren: () => import('./vaccine-registration/vaccine-registration.module').then( m => m.VaccineRegistrationPageModule)
+  },
 ];
 
 @NgModule({
